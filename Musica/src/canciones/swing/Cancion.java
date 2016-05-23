@@ -3,6 +3,8 @@ package canciones.swing;
 import java.util.Arrays;
 
 public class Cancion {
+	private int id;
+	
 	private String titulo = "<Sin titulo>";
 	private String artista = "<Sin artista>";
 	private String album = "<Sin album>";
@@ -11,6 +13,15 @@ public class Cancion {
 	private byte[] caratula = null;
 	private byte[] archivo = null;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -70,7 +81,7 @@ public class Cancion {
 	@Override
 	public String toString() {
 
-		return "Cancion [titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: " + getAlbum() + "  año: "
+		return "Cancion [id: "+ getId() + "  titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: " + getAlbum() + "  año: "
 				+ getAnyo() + "  genero: " + getGenero() + "  imagen: " + Arrays.toString(caratula) + "  archivo: "
 				+ Arrays.toString(archivo) + "]";
 	}

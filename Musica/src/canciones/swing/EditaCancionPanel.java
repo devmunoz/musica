@@ -1,6 +1,7 @@
 package canciones.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -29,10 +30,10 @@ public class EditaCancionPanel extends JPanel {
 	private JTextField anyoText;
 	private JTextField generoText;
 	
+	
 	private JButton caratulaLabel;
 	
 	private Cancion _cancion;
-
 
 	public Cancion getCancion() {
 		return _cancion;
@@ -45,7 +46,7 @@ public class EditaCancionPanel extends JPanel {
 	}
 
 	
-	private void deCancionAPanel() {
+	public void deCancionAPanel() {
 		Cancion c = getCancion();
 		tituloText.setText(c.getTitulo());
 		artistaText.setText(c.getArtista());
@@ -91,7 +92,7 @@ public class EditaCancionPanel extends JPanel {
 		f.setVisible(true);
 	}
 	
-	private void guardarCancion() {
+	public void guardarCancion() {
 		System.out.println("He entrado a guardar");
 		Cancion c = getCancion();
 		System.err.println("Antes de cambiar la cancion:" + c);
@@ -138,6 +139,7 @@ public class EditaCancionPanel extends JPanel {
 			}
 		}
 	}
+
 	
 	/**
 	 * Create the panel.
