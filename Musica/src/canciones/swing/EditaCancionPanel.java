@@ -33,19 +33,6 @@ public class EditaCancionPanel extends JPanel {
 	
 	private Cancion _cancion;
 	private boolean _dirty;
-	
-
-	public void setDirty(boolean b) {
-		_dirty = b ;
-		if (_dirty) {
-			setOpaque(true);
-			setBackground(Color.blue);
-		}
-		else {
-			setOpaque(false);
-		}
-		repaint();
-	}
 
 
 	public Cancion getCancion() {
@@ -55,15 +42,27 @@ public class EditaCancionPanel extends JPanel {
 
 	public void setCancion(Cancion _cancion) {
 		this._cancion = _cancion;
+		deCancionAPanel();
 	}
 
 	
+	private void deCancionAPanel() {
+		Cancion c = getCancion();
+		tituloText.setText(c.getTitulo());
+		artistaText.setText(c.getArtista());
+		albumText.setText(c.getAlbum());
+		anyoText.setText(""+(c.getAnyo()));
+		generoText.setText(c.getGenero());
+	}
+
+
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
 		EditaCancionPanel p = new EditaCancionPanel();
 		Cancion c = new Cancion();
 		c.setTitulo("prueba");
 		c.setArtista("artista");
+		c.setAlbum("Album de prueba");
 		p.setCancion(c);
 		f.getContentPane().add(p, BorderLayout.CENTER);
 		
