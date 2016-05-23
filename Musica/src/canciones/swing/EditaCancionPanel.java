@@ -34,7 +34,6 @@ public class EditaCancionPanel extends JPanel {
 	private JButton caratulaLabel;
 	
 	private Cancion _cancion;
-	private boolean _dirty;
 
 
 	public Cancion getCancion() {
@@ -96,6 +95,36 @@ public class EditaCancionPanel extends JPanel {
 	
 	private void guardarCancion() {
 		System.out.println("He entrado a guardar");
+		Cancion c = getCancion();
+		System.err.println("Antes de cambiar la cancion:" + c);
+
+		c.setTitulo(tituloText.getText());
+		c.setArtista(artistaText.getText());
+		c.setAlbum(albumText.getText());
+		c.setAnyo(Integer.parseInt(anyoText.getText()));
+		c.setGenero(generoText.getText());
+		
+		{
+			ImageIcon icon = (ImageIcon) caratulaLabel.getIcon();
+			BufferedImage i = (BufferedImage) icon.getImage();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				ImageIO.write(i, "png", out);
+				out.flush();
+				c.setCaratula( out.toByteArray() );
+			} catch (IOException e) {
+				// NO DEBERIA FALLAR PORQUE VA DE MEMORIA A MEMORIA,
+				// DEJO LA TRAZA POR SI ACASO
+				e.printStackTrace();
+			}
+			
+		//TODO controlar que no toque el archivo de audio
+			
+		}
+		
+
+		System.err.println("Después de cambiar la cancion:" + c);
+
 	}
 	
 	/**
