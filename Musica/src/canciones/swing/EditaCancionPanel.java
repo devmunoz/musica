@@ -53,6 +53,28 @@ public class EditaCancionPanel extends JPanel {
 		albumText.setText(c.getAlbum());
 		anyoText.setText(""+(c.getAnyo()));
 		generoText.setText(c.getGenero());
+		
+		//añadir imagen
+		{
+			byte[] caratula = c.getCaratula();
+			try {
+				InputStream in = null;
+				System.err.println(caratula);
+				if (caratula == null) {
+					in = getClass().getResourceAsStream("/canciones/swing/default.png");
+				} else {
+					in = new ByteArrayInputStream(caratula);
+				}
+				caratulaLabel.setIcon(new ImageIcon( ImageIO.read(in)));
+				caratulaLabel.setText("");
+
+			} catch (IOException e) {
+				// DEJO LA IMAGEN VACIA O COMO ESTUVIERA
+				caratulaLabel.setIcon(null);
+				caratulaLabel.setText("Imagen incorrecta");
+				e.printStackTrace();
+			}
+		}
 	}
 
 

@@ -8,8 +8,8 @@ public class Cancion {
 	private String album = "<Sin album>";
 	private int anyo = 0;
 	private String genero = "<Sin genero>";
-	private byte[] caratula;
-	private byte[] archivo;
+	private byte[] caratula = null;
+	private byte[] archivo = null;
 
 	public String getTitulo() {
 		return titulo;
