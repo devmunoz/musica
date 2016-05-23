@@ -1,11 +1,12 @@
 package canciones.swing;
 
 import java.awt.BorderLayout;
-//TODO meter campos adicionales? otra imagen?
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -14,15 +15,12 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import com.sun.corba.se.pept.transport.ContactInfo;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class EditaCancionPanel extends JPanel {
 	private JTextField tituloText;
@@ -118,13 +116,27 @@ public class EditaCancionPanel extends JPanel {
 				e.printStackTrace();
 			}
 			
-		//TODO controlar que no toque el archivo de audio
-			
 		}
+
+		//TODO controlar que no toque el archivo de audio
 		
 
 		System.err.println("Después de cambiar la cancion:" + c);
 
+	}
+	
+	private void seleccionImagen() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.showOpenDialog(this);
+		File f = chooser.getSelectedFile();
+		if( f != null ){
+			try {
+				BufferedImage i = ImageIO.read(f);
+				caratulaLabel.setIcon( new ImageIcon(i) );
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -187,6 +199,12 @@ public class EditaCancionPanel extends JPanel {
 		generoText.setColumns(10);
 
 		caratulaLabel = new JButton("caratulaLabel");
+		caratulaLabel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("tocaste cambiar imagen");
+				seleccionImagen();
+			}
+		});
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
