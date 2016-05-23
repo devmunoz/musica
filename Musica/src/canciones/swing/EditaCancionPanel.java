@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.sun.corba.se.pept.transport.ContactInfo;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditaCancionPanel extends JPanel {
 	private JTextField tituloText;
@@ -91,6 +93,11 @@ public class EditaCancionPanel extends JPanel {
 		f.pack();
 		f.setVisible(true);
 	}
+	
+	private void guardarCancion() {
+		System.out.println("He entrado a guardar");
+	}
+	
 	/**
 	 * Create the panel.
 	 */
@@ -131,65 +138,107 @@ public class EditaCancionPanel extends JPanel {
 		caratulaLabel= new JButton("caratulaLabel");
 
 		JButton guardarButton = new JButton("Guardar cambios");
+		guardarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("tocaste guardar");
+				guardarCancion();
+			}
+		});
+
+		artistaText = new JTextField();
+		artistaText.setColumns(10);
+
+		albumText = new JTextField();
+		albumText.setColumns(10);
+
+		anyoText = new JTextField();
+		anyoText.setColumns(10);
+
+		generoText = new JTextField();
+		generoText.setColumns(10);
+
+		caratulaLabel = new JButton("caratulaLabel");
+
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(20)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(generoText, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-								.addComponent(anyoText, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-								.addComponent(albumText, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-								.addComponent(artistaText, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(80)
-							.addComponent(guardarButton, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-					.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
-					.addGap(20))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(artistaText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(albumText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(anyoText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(generoText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addGap(34)
-							.addComponent(guardarButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(20, Short.MAX_VALUE))
-		);
+		groupLayout
+				.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
+						groupLayout
+								.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout
+												.createSequentialGroup().addGap(20).addGroup(groupLayout
+														.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 60,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 60,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 60,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblAo, GroupLayout.PREFERRED_SIZE,
+																60, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 60,
+																GroupLayout.PREFERRED_SIZE))
+												.addGap(10)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(generoText, GroupLayout.PREFERRED_SIZE, 200,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(anyoText, GroupLayout.PREFERRED_SIZE, 200,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(albumText, GroupLayout.PREFERRED_SIZE, 200,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(artistaText, GroupLayout.PREFERRED_SIZE, 200,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 200,
+																GroupLayout.PREFERRED_SIZE)))
+										.addGroup(groupLayout.createSequentialGroup().addGap(80).addComponent(
+												guardarButton, GroupLayout.PREFERRED_SIZE, 160,
+												GroupLayout.PREFERRED_SIZE)))
+								.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+								.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(20)));
+		groupLayout
+				.setVerticalGroup(
+						groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup().addGap(20).addGroup(groupLayout
+										.createParallelGroup(
+												Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(artistaText, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(albumText, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(anyoText, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(generoText, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addGap(34).addComponent(guardarButton, GroupLayout.PREFERRED_SIZE, 40,
+														GroupLayout.PREFERRED_SIZE))
+										.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260,
+												GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(20, Short.MAX_VALUE)));
 		setLayout(groupLayout);
 
-		
 	}
 }
