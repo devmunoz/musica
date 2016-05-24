@@ -36,4 +36,23 @@ public class CancionesDAO {
 		stmt.close();
 		return canciones;
 	}
+	
+	public static void addCancion(Connection connection, Cancion cancion) throws SQLException {
+		String sql = "INSERT INTO canciones(titulo,artista,album) values (?,?,?)";
+
+		System.out.println("Voy a ejecutar:" + sql);
+
+		Statement stmtUse = connection.createStatement();
+		ResultSet use = stmtUse.executeQuery("use musica");
+
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, cancion.getTitulo());
+		stmt.setString(2, cancion.getArtista());
+		stmt.setString(3, cancion.getAlbum());
+		int filas = stmt.executeUpdate();
+		stmt.close();
+
+		System.out.println("Número de filas afectadas:" + filas);
+	}
+
 }

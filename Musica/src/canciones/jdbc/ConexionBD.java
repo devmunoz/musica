@@ -14,7 +14,7 @@ public class ConexionBD {
 		return connection;
 	}
 
-	public static void cargarElDriver() {
+	public static void cargaDriver() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {

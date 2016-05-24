@@ -12,7 +12,7 @@ public class Cancion {
 	private String genero = "<Sin genero>";
 	private byte[] caratula = null;
 	private byte[] archivo = null;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -80,7 +80,7 @@ public class Cancion {
 
 	@Override
 	public String toString() {
-
+		//TODO AÑADIR <Sin caratula> <Sin año> <Sin archivo> en caso de ser NULL
 		return "Cancion [id: "+ getId() + "  titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: " + getAlbum() + "  año: "
 				+ getAnyo() + "  genero: " + getGenero() + "  imagen: " + Arrays.toString(caratula) + "  archivo: "
 				+ Arrays.toString(archivo) + "]";
