@@ -13,7 +13,6 @@ import canciones.swing.Cancion;
 public class CancionesDAO {
 	public static List<Cancion> leeCanciones(Connection connection) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet use = stmt.executeQuery("use musica");
 		ResultSet rs = stmt.executeQuery("select * from canciones");
 		List<Cancion> canciones = new ArrayList<>();
 		while (rs.next()) {
@@ -43,7 +42,6 @@ public class CancionesDAO {
 		System.out.println("Voy a ejecutar:" + sql);
 
 		Statement stmtUse = connection.createStatement();
-		ResultSet use = stmtUse.executeQuery("use musica");
 
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, cancion.getTitulo());

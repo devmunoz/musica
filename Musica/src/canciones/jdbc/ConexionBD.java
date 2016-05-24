@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConexionBD {
 	public static Connection creaConexion() throws SQLException {
 		Connection connection;
-		String url = "jdbc:mysql://localhost";
+		String url = "jdbc:mysql://localhost/musica";
 		String user = "padmin";
 		String password = "duni";
 		connection = DriverManager.getConnection(url, user, password);
