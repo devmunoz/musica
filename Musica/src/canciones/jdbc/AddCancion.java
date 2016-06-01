@@ -20,7 +20,7 @@ public class AddCancion {
 			Cancion cancion = cancionAInsertar();
 			
 			addCancion(connection, cancion);
-			System.out.println( leeCanciones(connection) );
+			System.out.println( leeCancion(connection) );
 			
 			
 			connection.close();

@@ -23,7 +23,7 @@ public class LeerCanciones {
 			connection = creaConexion();
 			System.out.println("Conexión establecida");
 
-			List<Cancion> canciones = leeCanciones(connection);
+			List<Cancion> canciones = leeCancion(connection);
 			
 			for( Cancion c : canciones ){
 				System.out.println(c);

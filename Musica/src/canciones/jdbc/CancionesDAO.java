@@ -11,7 +11,8 @@ import java.util.List;
 import canciones.swing.Cancion;
 
 public class CancionesDAO {
-	public static List<Cancion> leeCanciones(Connection connection) throws SQLException {
+	
+	public static List<Cancion> leeCancion(Connection connection) throws SQLException {
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from canciones");
 		List<Cancion> canciones = new ArrayList<>();
@@ -52,5 +53,31 @@ public class CancionesDAO {
 
 		System.out.println("Número de filas afectadas:" + filas);
 	}
+	
+
+	public static boolean editaCancion(Connection connection, Cancion cancion) throws SQLException {
+		String sql = "UPDATE canciones SET titulo=?, artista=? where id=?";
+		//TODO controlar que edito para no tocar demasiado
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, cancion.getTitulo());
+		stmt.setString(2, cancion.getArtista());
+		stmt.setInt(3, cancion.getId());
+		int filas = stmt.executeUpdate();
+		stmt.close();
+		return filas == 1;
+
+	}
+	
+	public static boolean borraCancion(Connection connection, Cancion cancion) throws SQLException {
+		String sql = "DELETE FROM canciones WHERE id=?";
+
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, cancion.getId());
+		int filas = stmt.executeUpdate();
+		stmt.close();
+		return filas == 1;
+
+	}
+
 
 }
