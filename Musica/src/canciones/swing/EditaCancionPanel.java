@@ -93,9 +93,9 @@ public class EditaCancionPanel extends JPanel {
 	}
 	
 	public void guardarCancion() {
-		System.out.println("He entrado a guardar");
+		System.out.println("He tocado en guardar");
 		Cancion c = getCancion();
-		System.err.println("Antes de cambiar la cancion:" + c);
+		System.out.println("Antes de cambiar la cancion:" + c);
 
 		c.setTitulo(tituloText.getText());
 		c.setArtista(artistaText.getText());
@@ -122,7 +122,7 @@ public class EditaCancionPanel extends JPanel {
 		//TODO controlar que no toque el archivo de audio
 		
 
-		System.err.println("Después de cambiar la cancion:" + c);
+		System.out.println("Después de cambiar la cancion:" + c);
 
 	}
 	

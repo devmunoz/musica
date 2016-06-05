@@ -79,5 +79,35 @@ public class CancionesDAO {
 
 	}
 
+	public static Cancion buscarPorID(Connection connection, int id) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("select id,titulo,artista from canciones where id=?");
+		stmt.setInt(1,id);
+
+		ResultSet rs = stmt.executeQuery();
+		List<Cancion> canciones = new ArrayList<>();
+		while (rs.next()) {
+			int idLeido = rs.getInt("id");
+			String titulo = rs.getString("titulo");
+			String artista = rs.getString("artista");
+			Cancion cancion = new Cancion();
+			cancion.setTitulo(titulo);
+			cancion.setArtista(artista);
+			cancion.setId(idLeido);
+			canciones.add(cancion);
+		}
+		
+		rs.close();
+		stmt.close();
+		
+		if( canciones.size() > 1 ){
+			throw new IllegalStateException();
+		}
+		if( canciones.size() == 0 ){
+			return null;
+		}
+		
+		return canciones.get(0);
+	}
+
 
 }

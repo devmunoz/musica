@@ -36,7 +36,7 @@ public class BorraCancion {
 
 	private static Cancion cancionABorrar() {
 		Cancion c = new Cancion();
-		c.setId(3);
+		c.setId(9);
 		return c;
 	}
 
