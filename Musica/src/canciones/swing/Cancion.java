@@ -81,9 +81,10 @@ public class Cancion {
 	@Override
 	public String toString() {
 		//TODO AÑADIR <Sin caratula> <Sin año> <Sin archivo> en caso de ser NULL
-		return "Cancion [id: "+ getId() + "  titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: " + getAlbum() + "  año: "
+		/*return "Cancion [id: "+ getId() + "  titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: " + getAlbum() + "  año: "
 				+ getAnyo() + "  genero: " + getGenero() + "  imagen: " + Arrays.toString(caratula) + "  archivo: "
-				+ Arrays.toString(archivo) + "]";
+				+ Arrays.toString(archivo) + "]";*/
+		return Arrays.toString(archivo);
 	}
 
 }

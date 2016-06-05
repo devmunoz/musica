@@ -5,9 +5,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -140,7 +142,32 @@ public class EditaCancionPanel extends JPanel {
 		}
 	}
 
+	private void seleccionArchivo() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.showOpenDialog(this);
+		File f = chooser.getSelectedFile();
+		if( f != null ){
+			try {
+				FileInputStream fis = new FileInputStream(f);
+				_cancion.setArchivo(archivoToByteArray(fis));
+				System.out.println(_cancion);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
+	private byte[] archivoToByteArray(FileInputStream bis) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    byte[] buffer = new byte[8192];
+	    int bytesRead;
+	    while ((bytesRead = bis.read(buffer)) > 0) {
+	        baos.write(buffer, 0, bytesRead);
+	    }
+	    return baos.toByteArray();
+	}
+
+
 	/**
 	 * Create the panel.
 	 */
@@ -180,11 +207,12 @@ public class EditaCancionPanel extends JPanel {
 
 		caratulaLabel= new JButton("caratulaLabel");
 
-		JButton guardarButton = new JButton("Guardar cambios");
+		JButton guardarButton = new JButton("Seleccion archivo");
 		guardarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("tocaste guardar");
-				guardarCancion();
+				System.out.println("tocaste editar archivo");
+				//guardarCancion();
+				seleccionArchivo();
 			}
 		});
 

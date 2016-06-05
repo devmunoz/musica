@@ -1,5 +1,6 @@
 package canciones.jdbc;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,14 +57,26 @@ public class CancionesDAO {
 	
 
 	public static boolean editaCancion(Connection connection, Cancion cancion) throws SQLException {
-		String sql = "UPDATE canciones SET titulo=?, artista=? where id=?";
-		//TODO controlar que edito para no tocar demasiado
+		String sql = "UPDATE canciones SET titulo=?, artista=?, album=?, anyo=?, genero=?, caratula=?, archivo=? where id=?";
+		
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, cancion.getTitulo());
 		stmt.setString(2, cancion.getArtista());
-		stmt.setInt(3, cancion.getId());
+		stmt.setString(3, cancion.getAlbum());
+		stmt.setInt(4, cancion.getAnyo());
+		stmt.setString(5, cancion.getGenero());
+		
+		Blob blobCaratula = connection.createBlob();
+		blobCaratula.setBytes(1, cancion.getCaratula());
+		stmt.setBlob(6, blobCaratula);
+		
+		Blob blobArchivo = connection.createBlob();
+		blobArchivo.setBytes(1, cancion.getArchivo());
+		stmt.setBlob(7, blobArchivo);
+		stmt.setInt(8, cancion.getId());
 		int filas = stmt.executeUpdate();
 		stmt.close();
+		
 		return filas == 1;
 
 	}
