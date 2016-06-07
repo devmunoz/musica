@@ -5,11 +5,11 @@ import java.util.Arrays;
 public class Cancion {
 	private int id;
 	
-	private String titulo = "<Sin titulo>";
-	private String artista = "<Sin artista>";
-	private String album = "<Sin album>";
-	private int anyo = 0;
-	private String genero = "<Sin genero>";
+	private String titulo = "<Titulo deconocido>";
+	private String artista = "<Artista deconocido>";
+	private String album = "<Album deconocido>";
+	private int anyo = 0000;
+	private String genero = "<Genero deconocido>";
 	private byte[] caratula = null;
 	private byte[] archivo = null;
 	

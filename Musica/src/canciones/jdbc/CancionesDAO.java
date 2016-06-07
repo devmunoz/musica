@@ -71,6 +71,7 @@ public class CancionesDAO {
 		stmt.setBlob(6, blobCaratula);
 		
 		Blob blobArchivo = connection.createBlob();
+		
 		blobArchivo.setBytes(1, cancion.getArchivo());
 		stmt.setBlob(7, blobArchivo);
 		stmt.setInt(8, cancion.getId());
@@ -120,6 +121,14 @@ public class CancionesDAO {
 		}
 		
 		return canciones.get(0);
+	}
+	
+	public static Cancion quitaNulos(Cancion cancion){
+		
+		if (cancion.getTitulo()==null) {
+			cancion.setTitulo("Titulo desconocido");
+		}
+		return cancion;
 	}
 
 
