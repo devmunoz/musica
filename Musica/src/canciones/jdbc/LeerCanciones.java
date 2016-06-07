@@ -26,7 +26,7 @@ public class LeerCanciones {
 			List<Cancion> canciones = leeCancion(connection);
 			
 			for( Cancion c : canciones ){
-				System.out.println(c);
+				System.out.println("Cancion 1:"+c);
 			}
 
 			connection.close();

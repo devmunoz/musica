@@ -1,4 +1,4 @@
-package canciones.jdbc;
+package canciones.swing;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import canciones.jdbc.CancionesDAO;
+import canciones.jdbc.ConexionBD;
 import canciones.swing.Cancion;
 import canciones.swing.EditaCancionPanel;
 

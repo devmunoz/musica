@@ -1,18 +1,24 @@
 package canciones.swing;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Cancion {
 	private int id;
-	
+
 	private String titulo = "<Titulo deconocido>";
 	private String artista = "<Artista deconocido>";
 	private String album = "<Album deconocido>";
 	private int anyo = 0000;
 	private String genero = "<Genero deconocido>";
-	private byte[] caratula = null;
-	private byte[] archivo = null;
-	
+	private byte[] caratula;
+	private byte[] archivo = {};
+
 	public int getId() {
 		return id;
 	}
@@ -21,7 +27,6 @@ public class Cancion {
 		this.id = id;
 	}
 
-	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -80,11 +85,17 @@ public class Cancion {
 
 	@Override
 	public String toString() {
-		//TODO AÑADIR <Sin caratula> <Sin año> <Sin archivo> en caso de ser NULL
-		/*return "Cancion [id: "+ getId() + "  titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: " + getAlbum() + "  año: "
-				+ getAnyo() + "  genero: " + getGenero() + "  imagen: " + Arrays.toString(caratula) + "  archivo: "
-				+ Arrays.toString(archivo) + "]";*/
-		return Arrays.toString(archivo);
+		
+		boolean karatula = false;
+		boolean harchivo = false;
+		if (getCaratula()!=null) {
+			karatula=true;
+		}if (getArchivo()!=null) {
+			harchivo=true;
+		}
+		return "Cancion [id: " + getId() + "  titulo: " + getTitulo() + "  artista: " + getArtista() + "  album: "
+				+ getAlbum() + "  año: " + getAnyo() + "  genero: " + getGenero() + "  imagen: "
+				+ karatula + "  archivo: " + harchivo + "]";
 	}
 
 }

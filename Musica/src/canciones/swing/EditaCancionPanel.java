@@ -62,7 +62,8 @@ public class EditaCancionPanel extends JPanel {
 			try {
 				InputStream in = null;
 				System.err.println(caratula);
-				if (caratula == null) {
+				
+				if ( caratula == null ) {
 					in = getClass().getResourceAsStream("/canciones/swing/default.png");
 				} else {
 					in = new ByteArrayInputStream(caratula);
@@ -120,9 +121,6 @@ public class EditaCancionPanel extends JPanel {
 			}
 			
 		}
-
-		//TODO controlar que no toque el archivo de audio
-		
 
 		System.out.println("Después de cambiar la cancion:" + c);
 
@@ -211,7 +209,6 @@ public class EditaCancionPanel extends JPanel {
 		guardarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("tocaste editar archivo");
-				//guardarCancion();
 				seleccionArchivo();
 			}
 		});
