@@ -24,16 +24,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class EditaCancionPanel extends JPanel {
 	private JTextField tituloText;
 	private JTextField artistaText;
+	private JTextField artistaText_1;
 	private JTextField albumText;
+	private JTextField albumText_1;
 	private JTextField anyoText;
+	private JTextField anyoText_1;
 	private JTextField generoText;
+	private JTextField generoText_1;
 	
 	
 	private JButton caratulaLabel;
+	private JButton caratulaLabel_1;
 	
 	private Cancion _cancion;
 
@@ -51,10 +58,10 @@ public class EditaCancionPanel extends JPanel {
 	public void deCancionAPanel() {
 		Cancion c = getCancion();
 		tituloText.setText(c.getTitulo());
-		artistaText.setText(c.getArtista());
-		albumText.setText(c.getAlbum());
-		anyoText.setText(""+(c.getAnyo()));
-		generoText.setText(c.getGenero());
+		artistaText_1.setText(c.getArtista());
+		albumText_1.setText(c.getAlbum());
+		anyoText_1.setText(""+(c.getAnyo()));
+		generoText_1.setText(c.getGenero());
 		
 		//añadir imagen
 		{
@@ -68,13 +75,13 @@ public class EditaCancionPanel extends JPanel {
 				} else {
 					in = new ByteArrayInputStream(caratula);
 				}
-				caratulaLabel.setIcon(new ImageIcon( ImageIO.read(in)));
-				caratulaLabel.setText("");
+				caratulaLabel_1.setIcon(new ImageIcon( ImageIO.read(in)));
+				caratulaLabel_1.setText("");
 
 			} catch (IOException e) {
 				// DEJO LA IMAGEN VACIA O COMO ESTUVIERA
-				caratulaLabel.setIcon(null);
-				caratulaLabel.setText("Imagen incorrecta");
+				caratulaLabel_1.setIcon(null);
+				caratulaLabel_1.setText("Imagen incorrecta");
 				e.printStackTrace();
 			}
 		}
@@ -101,13 +108,13 @@ public class EditaCancionPanel extends JPanel {
 		System.out.println("Antes de cambiar la cancion:" + c);
 
 		c.setTitulo(tituloText.getText());
-		c.setArtista(artistaText.getText());
-		c.setAlbum(albumText.getText());
-		c.setAnyo(Integer.parseInt(anyoText.getText()));
-		c.setGenero(generoText.getText());
+		c.setArtista(artistaText_1.getText());
+		c.setAlbum(albumText_1.getText());
+		c.setAnyo(Integer.parseInt(anyoText_1.getText()));
+		c.setGenero(generoText_1.getText());
 		
 		{
-			ImageIcon icon = (ImageIcon) caratulaLabel.getIcon();
+			ImageIcon icon = (ImageIcon) caratulaLabel_1.getIcon();
 			BufferedImage i = (BufferedImage) icon.getImage();
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
@@ -133,7 +140,7 @@ public class EditaCancionPanel extends JPanel {
 		if( f != null ){
 			try {
 				BufferedImage i = ImageIO.read(f);
-				caratulaLabel.setIcon( new ImageIcon(i) );
+				caratulaLabel_1.setIcon( new ImageIcon(i) );
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -170,6 +177,7 @@ public class EditaCancionPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public EditaCancionPanel() {
+		setFocusTraversalPolicyProvider(true);
 
 		initComponents();
 			
@@ -206,6 +214,7 @@ public class EditaCancionPanel extends JPanel {
 		caratulaLabel= new JButton("caratulaLabel");
 
 		JButton guardarButton = new JButton("Seleccion archivo");
+		guardarButton.setToolTipText("Pulsa para seleccionar el archivo de audio");
 		guardarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("tocaste editar archivo");
@@ -213,20 +222,22 @@ public class EditaCancionPanel extends JPanel {
 			}
 		});
 
-		artistaText = new JTextField();
-		artistaText.setColumns(10);
+		artistaText_1 = new JTextField();
+		artistaText_1.setColumns(10);
 
-		albumText = new JTextField();
-		albumText.setColumns(10);
+		albumText_1 = new JTextField();
+		albumText_1.setColumns(10);
 
-		anyoText = new JTextField();
-		anyoText.setColumns(10);
+		anyoText_1 = new JTextField();
+		anyoText_1.setToolTipText("Introduce sólo números");
+		anyoText_1.setColumns(10);
 
-		generoText = new JTextField();
-		generoText.setColumns(10);
+		generoText_1 = new JTextField();
+		generoText_1.setColumns(10);
 
-		caratulaLabel = new JButton("caratulaLabel");
-		caratulaLabel.addActionListener(new ActionListener() {
+		caratulaLabel_1 = new JButton("caratulaLabel");
+		caratulaLabel_1.setToolTipText("Pulsa para seleccionar la imagen");
+		caratulaLabel_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("tocaste cambiar imagen");
 				seleccionImagen();
@@ -254,13 +265,13 @@ public class EditaCancionPanel extends JPanel {
 																GroupLayout.PREFERRED_SIZE))
 												.addGap(10)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(generoText, GroupLayout.PREFERRED_SIZE, 200,
+														.addComponent(generoText_1, GroupLayout.PREFERRED_SIZE, 200,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(anyoText, GroupLayout.PREFERRED_SIZE, 200,
+														.addComponent(anyoText_1, GroupLayout.PREFERRED_SIZE, 200,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(albumText, GroupLayout.PREFERRED_SIZE, 200,
+														.addComponent(albumText_1, GroupLayout.PREFERRED_SIZE, 200,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(artistaText, GroupLayout.PREFERRED_SIZE, 200,
+														.addComponent(artistaText_1, GroupLayout.PREFERRED_SIZE, 200,
 																GroupLayout.PREFERRED_SIZE)
 														.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 200,
 																GroupLayout.PREFERRED_SIZE)))
@@ -268,7 +279,7 @@ public class EditaCancionPanel extends JPanel {
 												guardarButton, GroupLayout.PREFERRED_SIZE, 160,
 												GroupLayout.PREFERRED_SIZE)))
 								.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-								.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260,
+								.addComponent(caratulaLabel_1, GroupLayout.PREFERRED_SIZE, 260,
 										GroupLayout.PREFERRED_SIZE)
 								.addGap(20)));
 		groupLayout
@@ -287,32 +298,33 @@ public class EditaCancionPanel extends JPanel {
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(artistaText, GroupLayout.PREFERRED_SIZE, 30,
+														.addComponent(artistaText_1, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(albumText, GroupLayout.PREFERRED_SIZE, 30,
+														.addComponent(albumText_1, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(anyoText, GroupLayout.PREFERRED_SIZE, 30,
+														.addComponent(anyoText_1, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(generoText, GroupLayout.PREFERRED_SIZE, 30,
+														.addComponent(generoText_1, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE)
 														.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 30,
 																GroupLayout.PREFERRED_SIZE))
 												.addGap(34).addComponent(guardarButton, GroupLayout.PREFERRED_SIZE, 40,
 														GroupLayout.PREFERRED_SIZE))
-										.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260,
+										.addComponent(caratulaLabel_1, GroupLayout.PREFERRED_SIZE, 260,
 												GroupLayout.PREFERRED_SIZE))
 										.addContainerGap(20, Short.MAX_VALUE)));
 		setLayout(groupLayout);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tituloText, artistaText_1, albumText_1, anyoText_1, generoText_1, caratulaLabel_1, guardarButton}));
 
 	}
 }
