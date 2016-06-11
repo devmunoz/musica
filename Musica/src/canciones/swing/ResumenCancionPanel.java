@@ -1,6 +1,7 @@
 package canciones.swing;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -54,6 +55,12 @@ public class ResumenCancionPanel extends JPanel {
 				BufferedImage image = ImageIO.read(in);
 				if (image != null) {
 					ImageIcon ii = new ImageIcon(image);
+					
+					//escalar la imagen a 100
+					Image img = ii.getImage();
+					Image newimg = img.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
+					ii = new ImageIcon(newimg);
+					
 					caratula.setIcon(ii);
 				}
 				caratula.setText("");
@@ -71,7 +78,7 @@ public class ResumenCancionPanel extends JPanel {
 		setMinimumSize(new Dimension(500, 150));
 
 		caratula = new JLabel("caratula");
-		caratula.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		caratula.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
 
 		JLabel lblTituloDeLa = new JLabel("Titulo:");
 

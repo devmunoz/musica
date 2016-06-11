@@ -63,6 +63,7 @@ public class CancionDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Guardar");
+				okButton.setMnemonic('g');
 				okButton.setToolTipText("Pulsa para guardar los cambios");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -75,6 +76,7 @@ public class CancionDialog extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setMnemonic('c');
 				cancelButton.setToolTipText("Pulsa para cancelar los cambios");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

@@ -74,6 +74,7 @@ public class ListaFrame extends JFrame {
 		contentPane.add(surPanel, BorderLayout.SOUTH);
 
 		JButton addBtn = new JButton("Añadir cancion");
+		addBtn.setMnemonic('a');
 		addBtn.setToolTipText("Pulsa para añadir una nueva cancion a la base de datos");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,6 +84,7 @@ public class ListaFrame extends JFrame {
 		surPanel.add(addBtn);
 
 		JButton editBtn = new JButton("Editar Cancion");
+		editBtn.setMnemonic('e');
 		editBtn.setToolTipText("Pulsa para editar los datos de la cancion seleccionada");
 		editBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +94,7 @@ public class ListaFrame extends JFrame {
 		surPanel.add(editBtn);
 
 		JButton delBtn = new JButton("Borrar Cancion");
+		delBtn.setMnemonic('b');
 		delBtn.setToolTipText("Pulsa para borrar la cancion seleccionada");
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
