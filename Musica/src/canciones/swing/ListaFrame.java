@@ -55,7 +55,6 @@ public class ListaFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaFrame() {
-		setMinimumSize(new Dimension(600, 650));
 
 		initComponents();
 		inicializaDatosDeLista();
@@ -63,7 +62,9 @@ public class ListaFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		setMinimumSize(new Dimension(600, 650));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 651);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

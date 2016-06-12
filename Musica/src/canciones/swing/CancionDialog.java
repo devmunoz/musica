@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import java.awt.Dimension;
 
 public class CancionDialog extends JDialog {
 
@@ -47,7 +48,14 @@ public class CancionDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public CancionDialog() {
-		setBounds(100, 100, 584, 364);
+		initComponents();
+	}
+
+	private void initComponents() {
+
+		setMinimumSize(new Dimension(610, 370));
+		getContentPane().setMinimumSize(new Dimension(600, 300));
+		setBounds(100, 100, 610, 360);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -88,26 +96,22 @@ public class CancionDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+
 	}
+
 	protected void cancelar() {
 		System.out.println("Cancelado");
 		aceptado = false;
 		setVisible(false);
 	}
-	
-	protected void guardar() {
- 		System.out.println("Guardado");
- 		cancionPanel.guardarCancion();
- 		aceptado = true;
- 		setVisible(false);
- 	}
-	
 
-	/**
-	 * @return El contacto ya cambiado, o null si no lo cambio
-	 * @param id
-	 * @throws SQLException
-	 */
+	protected void guardar() {
+		System.out.println("Guardado");
+		cancionPanel.guardarCancion();
+		aceptado = true;
+		setVisible(false);
+	}
+
 	public static Cancion editaCancionConID(int id) throws SQLException {
 
 		Connection connection = null;
@@ -127,7 +131,7 @@ public class CancionDialog extends JDialog {
 				CancionesDAO.editaCancion(connection, c);
 				System.out.println("Guardada en BD");
 				return c;
-				
+
 			}
 		} finally {
 			connection.close();

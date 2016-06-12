@@ -46,6 +46,8 @@ public class EditaCancionPanel extends JPanel {
 
 	private Cancion _cancion;
 
+	private ImageIcon _ii;
+	
 	public Cancion getCancion() {
 		return _cancion;
 	}
@@ -77,7 +79,7 @@ public class EditaCancionPanel extends JPanel {
 				}
 				ImageIcon ii = new ImageIcon(ImageIO.read(in));
 				
-				
+				set_ii(ii);
 				
 				caratulaLabel.setIcon(redimensionaImg(ii));
 				caratulaLabel.setText("");
@@ -89,6 +91,14 @@ public class EditaCancionPanel extends JPanel {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public ImageIcon get_ii() {
+		return _ii;
+	}
+
+	public void set_ii(ImageIcon _ii) {
+		this._ii = _ii;
 	}
 
 	private ImageIcon redimensionaImg(ImageIcon ii) {
@@ -123,8 +133,10 @@ public class EditaCancionPanel extends JPanel {
 		c.setGenero(generoText_1.getText());
 
 		{
-			ImageIcon icon = (ImageIcon) caratulaLabel.getIcon();
-			BufferedImage i = (BufferedImage) icon.getImage();
+			ImageIcon icon = get_ii();
+			
+			BufferedImage i =  (BufferedImage) icon.getImage();
+			
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
 				ImageIO.write(i, "png", out);
@@ -149,7 +161,9 @@ public class EditaCancionPanel extends JPanel {
 		if (f != null) {
 			try {
 				BufferedImage i = ImageIO.read(f);
-				caratulaLabel.setIcon(redimensionaImg(new ImageIcon(i)));
+				ImageIcon ii = new ImageIcon(i);
+				set_ii(ii);
+				caratulaLabel.setIcon(redimensionaImg(ii));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -185,8 +199,6 @@ public class EditaCancionPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public EditaCancionPanel() {
-		setMaximumSize(new Dimension(32767, 300));
-		setMinimumSize(new Dimension(600, 300));
 		setFocusTraversalPolicyProvider(true);
 
 		initComponents();
