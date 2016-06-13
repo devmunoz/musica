@@ -38,6 +38,7 @@ public class ListaFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaFrame() {
+		setTitle("Lista de Canciones");
 
 		initComponents();
 		inicializaDatosDeLista();

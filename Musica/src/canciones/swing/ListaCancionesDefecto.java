@@ -42,7 +42,7 @@ public class ListaCancionesDefecto {
 		String rutaDef = "/home/duni/git/Musica/src/canciones/swing/res/";
 		addCancionALista("Monster", "Skyllet", "Awake", 2009, "Rock", caratulaByteArray("/canciones/swing/res/1.png"),
 				archivoByteArray(rutaDef + "1.mp3"));
-		addCancionALista("Vamos al espacio exterior", "Chimo Bayo", "", 1995, "Mákina",
+		addCancionALista("Vamos al espacio exterior", "Chimo Bayo", "Album desconocido", 1995, "Mákina",
 				caratulaByteArray("/canciones/swing/res/2.png"), archivoByteArray(rutaDef + "2.mp3"));
 		addCancionALista("Redemption Song", "Bob Marley", "Uprising", 1980, "Reggae",
 				caratulaByteArray("/canciones/swing/res/3.png"), archivoByteArray(rutaDef + "3.mp3"));

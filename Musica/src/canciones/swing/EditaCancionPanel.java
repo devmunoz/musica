@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
@@ -109,17 +110,10 @@ public class EditaCancionPanel extends JPanel {
 	public void guardarCancion() {
 		System.out.println("Guardando cancion...");
 		Cancion c = getCancion();
+
+		c = arreglaCancion(c);
 		System.out.println("Antes de cambiar la cancion:" + c);
 
-		c.setTitulo(tituloText.getText());
-		c.setArtista(artistaText_1.getText());
-		c.setAlbum(albumText_1.getText());
-		if (anyoText_1.getText().equals("Año desconocido")) {
-			c.setAnyo(0);
-		} else {
-			c.setAnyo(Integer.parseInt(anyoText_1.getText()));
-		}
-		c.setGenero(generoText_1.getText());
 
 		{
 			ImageIcon icon = get_ii();
@@ -142,8 +136,51 @@ public class EditaCancionPanel extends JPanel {
 
 	}
 
+	/**
+	 * Quita blancos y arregla el string del año.
+	 * 
+	 * @param c
+	 * @return
+	 */
+	private Cancion arreglaCancion(Cancion c) {
+
+		if (tituloText.getText().equals("")) {
+			c.setTitulo("Título desconocido");
+		} else {
+			c.setTitulo(tituloText.getText());
+		}
+
+		if (artistaText_1.getText().equals("")) {
+			c.setArtista("Artista desconocido");
+		} else {
+			c.setArtista(artistaText_1.getText());
+		}
+
+		if (albumText_1.getText().equals("")) {
+			c.setAlbum("Album desconocido");
+		} else {
+			c.setAlbum(albumText_1.getText());
+		}
+
+		if (anyoText_1.getText().equals("") || anyoText_1.getText().equals("Año desconocido")) {
+			c.setAnyo(0);
+		} else {
+			c.setAnyo(Integer.parseInt(anyoText_1.getText()));
+		}
+
+		if (generoText_1.getText().equals("")) {
+			c.setGenero("Género desconocido");
+		} else {
+			c.setGenero(generoText_1.getText());
+		}
+
+		return c;
+	}
+
 	private void seleccionImagen() {
 		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+	    chooser.setFileFilter(filtroImagen);
 		chooser.showOpenDialog(this);
 		File f = chooser.getSelectedFile();
 		if (f != null) {
@@ -160,6 +197,8 @@ public class EditaCancionPanel extends JPanel {
 
 	private void seleccionArchivo() {
 		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("MP3 & WAV","mp3","wav");
+	    chooser.setFileFilter(filtroImagen);
 		chooser.showOpenDialog(this);
 		File f = chooser.getSelectedFile();
 		if (f != null) {

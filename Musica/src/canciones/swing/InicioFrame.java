@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -50,6 +51,7 @@ public class InicioFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioFrame() {
+		setTitle("Biblioteca de música - Inicio");
 		initComponents();
 	}
 
@@ -181,6 +183,10 @@ public class InicioFrame extends JFrame {
 			}
 
 			String[] elementosCombo = arrayListToArrayString(elementosParaComboBox);
+			
+			//ordeno
+			Arrays.sort(elementosCombo);
+			
 			// lo mando al combobox
 			CancionesAgrupadas ca = new CancionesAgrupadas();
 			ca.setCampo(queEs(i));

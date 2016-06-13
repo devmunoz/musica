@@ -71,6 +71,7 @@ public class CancionesAgrupadas extends JDialog {
 	 * Create the dialog.
 	 */
 	public CancionesAgrupadas() {
+		setTitle("Lista de Canciones agrupadas");
 		initComponents();
 	}
 

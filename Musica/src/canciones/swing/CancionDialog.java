@@ -40,6 +40,7 @@ public class CancionDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public CancionDialog() {
+		setTitle("Edita Canción");
 		initComponents();
 	}
 

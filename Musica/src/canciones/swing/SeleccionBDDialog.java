@@ -22,6 +22,7 @@ public class SeleccionBDDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public SeleccionBDDialog() {
+		setTitle("Seleccion de conexión");
 		initComponents();
 	}
 
