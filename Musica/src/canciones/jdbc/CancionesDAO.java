@@ -51,8 +51,8 @@ public class CancionesDAO {
 
 	public static void addCancion(Connection connection, Cancion cancion) throws SQLException {
 		String sql = "INSERT INTO canciones(titulo,artista,album,anyo,genero,caratula,archivo) values (?,?,?,?,?,?,?)";
-
-		System.out.println("Voy a ejecutar:" + sql);
+		cancion = cortaCancion(cancion);
+		System.out.println("Añadiendo cancion a la BD...");
 
 		PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, cancion.getTitulo());
@@ -85,6 +85,7 @@ public class CancionesDAO {
 
 	public static boolean editaCancion(Connection connection, Cancion cancion) throws SQLException {
 		String sql = "UPDATE canciones SET titulo=?, artista=?, album=?, anyo=?, genero=?, caratula=?, archivo=? where id=?";
+		cancion = cortaCancion(cancion);
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, cancion.getTitulo());
 		stmt.setString(2, cancion.getArtista());
@@ -121,7 +122,6 @@ public class CancionesDAO {
 	}
 
 	public static Cancion buscarPorID(Connection connection, int id) throws SQLException {
-		// TODO add resto de campos
 		PreparedStatement stmt = connection.prepareStatement(
 				"select id,titulo, artista, album, anyo, genero, caratula, archivo from canciones where id=?");
 		stmt.setInt(1, id);
@@ -169,5 +169,32 @@ public class CancionesDAO {
 		}
 
 		return canciones.get(0);
+	}
+
+	/**
+	 * Ajusta los valores de la cancion para que no falle al insertarlos en la
+	 * Base de Datos.
+	 * 
+	 * @param cancion
+	 * @return cancion con campos ajustados
+	 */
+	private static Cancion cortaCancion(Cancion cancion) {
+		if (cancion.getTitulo().length() > 50) {
+			cancion.setTitulo(cancion.getTitulo().substring(0, 50));
+		}
+		if (cancion.getArtista().length() > 50) {
+			cancion.setArtista(cancion.getArtista().substring(0, 50));
+		}
+		if (cancion.getAlbum().length() > 50) {
+			cancion.setAlbum(cancion.getAlbum().substring(0, 50));
+		}
+		if (cancion.getAnyo() > 9999) {
+			cancion.setAnyo(9999);
+		}
+		if (cancion.getGenero().length() > 50) {
+			cancion.setGenero(cancion.getGenero().substring(0, 50));
+		}
+
+		return cancion;
 	}
 }

@@ -14,8 +14,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
@@ -39,7 +37,11 @@ public class ResumenCancionPanel extends JPanel {
 		titulo.setText(c.getTitulo());
 		artista.setText(c.getArtista());
 		album.setText(c.getAlbum());
-		anyo.setText("" + (c.getAnyo()));
+		if (c.getAnyo() == 0) {
+			anyo.setText("Año desconocido");
+		} else {
+			anyo.setText("" + (c.getAnyo()));
+		}
 		genero.setText(c.getGenero());
 
 		caratula.setIcon(null);
@@ -48,19 +50,19 @@ public class ResumenCancionPanel extends JPanel {
 			try {
 				InputStream in = null;
 				if (imagen == null) {
-					in = getClass().getResourceAsStream("/canciones/swing/default.png");
+					in = getClass().getResourceAsStream("/canciones/swing/res/default.png");
 				} else {
 					in = new ByteArrayInputStream(imagen);
 				}
 				BufferedImage image = ImageIO.read(in);
 				if (image != null) {
 					ImageIcon ii = new ImageIcon(image);
-					
-					//escalar la imagen a 100
+
+					// escalar la imagen a 100
 					Image img = ii.getImage();
-					Image newimg = img.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
+					Image newimg = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 					ii = new ImageIcon(newimg);
-					
+
 					caratula.setIcon(ii);
 				}
 				caratula.setText("");

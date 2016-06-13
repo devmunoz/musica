@@ -1,31 +1,26 @@
 package canciones.swing;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import canciones.jdbc.CancionesDAO;
 import canciones.jdbc.ConexionBD;
-
-import java.awt.Color;
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-
-import javax.swing.UIManager;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
 
 public class EstadoPanel extends JPanel {
 
@@ -55,7 +50,8 @@ public class EstadoPanel extends JPanel {
 			vaciaBtn.setEnabled(true);
 			creaEjemploBtn.setEnabled(true);
 			InicioFrame.listaButton.setEnabled(true);
-			
+			InicioFrame.agrupaBtn.setEnabled(true);
+
 		} else {
 			conexionLabel.setText("No conectada");
 			conexionLabel.setForeground(Color.RED);
@@ -65,6 +61,7 @@ public class EstadoPanel extends JPanel {
 			vaciaBtn.setEnabled(false);
 			creaEjemploBtn.setEnabled(false);
 			InicioFrame.listaButton.setEnabled(false);
+			InicioFrame.agrupaBtn.setEnabled(false);
 		}
 
 	}
@@ -284,14 +281,13 @@ public class EstadoPanel extends JPanel {
 		Connection c = null;
 		try {
 			c = ConexionBD.creaConexion();
-			ListaCancionesDefecto lc =new ListaCancionesDefecto();
+			ListaCancionesDefecto lc = new ListaCancionesDefecto();
 			lc.addCancionesDefecto();
 			for (int i = 0; i < lc.getNumCanciones(); i++) {
 				CancionesDAO.addCancion(c, lc.getCanciones().get(i));
-				System.out.println("Cancion "+(i+1)+" añadida");
+				System.out.println("Cancion " + (i + 1) + " añadida");
 			}
-			
-			
+
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}
@@ -308,14 +304,19 @@ public class EstadoPanel extends JPanel {
 				+ "archivo longblob DEFAULT NULL, " + "PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 		Connection connection = null;
 		connection = ConexionBD.creaConexion();
+
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.executeUpdate();
+		try {
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("Probablemente la tabla no existe: ");
+			e.printStackTrace();
+		}
 
 		stmt = connection.prepareStatement(sql2);
 		stmt.executeUpdate();
 
 		stmt.close();
-		System.out.println("Tabla vaciada");
 		actualizaDatos();
 	}
 }

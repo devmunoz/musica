@@ -14,7 +14,6 @@ import javax.swing.JList;
 import java.awt.Component;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 
 import javax.swing.JScrollPane;
@@ -34,22 +33,6 @@ public class ListaFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JList<Cancion> list;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListaFrame frame = new ListaFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -134,7 +117,7 @@ public class ListaFrame extends JFrame {
 			if (cancionEditada == null) {
 				return;
 			}
-			System.out.println("han cambiado la cancion, actualizo la lista");
+			System.out.println("Cancion cambiada, actualizando lista");
 
 			DefaultListModel<Cancion> model = (DefaultListModel<Cancion>) list.getModel();
 			model.set(i, cancionEditada);
@@ -150,7 +133,7 @@ public class ListaFrame extends JFrame {
 		dialog.setModal(true);
 		dialog.setVisible(true);
 		if (!dialog.isAceptado()) {
-			System.out.println("No quiero crearlo");
+			System.out.println("Creacion cancelada");
 			return;
 		}
 
@@ -193,7 +176,7 @@ public class ListaFrame extends JFrame {
 			connection = ConexionBD.creaConexion();
 			CancionesDAO.borraCancion(connection, cancion);
 
-			System.out.println("han cambiado la cancion, actualizo la lista");
+			System.out.println("Cancion borrada, actualizando lista");
 
 			DefaultListModel<Cancion> model = (DefaultListModel<Cancion>) list.getModel();
 			model.remove(i);
@@ -209,7 +192,6 @@ public class ListaFrame extends JFrame {
 			}
 		}
 	}
-
 
 	private class RendererDeListaDeCanciones implements ListCellRenderer<Cancion> {
 

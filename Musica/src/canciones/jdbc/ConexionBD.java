@@ -5,44 +5,40 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-	
-	//por defecto usa la BD musica en localhost
-	private static  String url = "jdbc:mysql://localhost/musica";
-	private static String user = "padmin";
-	private static String password = "duni";
-	
-	
+
+	// por defecto usa la BD musica en localhost
+	private static String url = "jdbc:mysql://localhost/musica";
+	private static String user = "alumno";
+	private static String password = "alumno";
+
 	public static Connection creaConexion() throws SQLException {
 		Connection connection;
 		connection = DriverManager.getConnection(url, user, password);
 		return connection;
 	}
-	
-	public static void conexionDefecto(){
+
+	public static void conexionDefecto() {
 		ConexionBD.setUrl("jdbc:mysql://localhost/musica");
-		ConexionBD.setUser("padmin");
-		ConexionBD.setPassword("duni");
+		ConexionBD.setUser("alumno");
+		ConexionBD.setPassword("alumno");
 	}
 
 	public static String getUrl() {
 		return url;
 	}
-	
+
 	public static String getUrlUrl(String loQueQuiero) {
 		String urlYTabla = url.substring(13);
 		String[] corte = urlYTabla.split("/");
-		if (loQueQuiero=="url") {
-			return corte[0];			
-		}
-		else if (loQueQuiero=="tabla"){
+		if (loQueQuiero == "url") {
+			return corte[0];
+		} else if (loQueQuiero == "tabla") {
 			return corte[1];
-		}
-		else {
+		} else {
 			return urlYTabla;
 		}
 
 	}
-	
 
 	public static void setUrl(String _url) {
 		ConexionBD.url = _url;

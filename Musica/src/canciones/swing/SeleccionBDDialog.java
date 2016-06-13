@@ -19,19 +19,6 @@ public class SeleccionBDDialog extends JDialog {
 	private JButton eligeBtn;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			SeleccionBDDialog dialog = new SeleccionBDDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public SeleccionBDDialog() {
@@ -105,7 +92,7 @@ public class SeleccionBDDialog extends JDialog {
 		finalizado = false;
 		setVisible(false);
 	}
-	
+
 	protected void elegir() {
 		seleccionPanel.eligeConexion();
 		finalizado = false;

@@ -1,7 +1,12 @@
 package canciones.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -10,16 +15,6 @@ import javax.swing.border.EmptyBorder;
 
 import canciones.jdbc.CancionesDAO;
 import canciones.jdbc.ConexionBD;
-import canciones.swing.Cancion;
-import canciones.swing.EditaCancionPanel;
-
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Dimension;
 
 public class CancionDialog extends JDialog {
 
@@ -32,9 +27,6 @@ public class CancionDialog extends JDialog {
 	 * 
 	 * @throws SQLException
 	 */
-	public static void main(String[] args) throws SQLException {
-		editaCancionConID(1);
-	}
 
 	public Cancion getCancion() {
 		return cancionPanel.getCancion();
@@ -100,13 +92,13 @@ public class CancionDialog extends JDialog {
 	}
 
 	protected void cancelar() {
-		System.out.println("Cancelado");
+		System.out.println("Pulsó cancelar");
 		aceptado = false;
 		setVisible(false);
 	}
 
 	protected void guardar() {
-		System.out.println("Guardado");
+		System.out.println("Pulsó guardar");
 		cancionPanel.guardarCancion();
 		aceptado = true;
 		setVisible(false);
@@ -119,17 +111,14 @@ public class CancionDialog extends JDialog {
 			connection = ConexionBD.creaConexion();
 			Cancion c = CancionesDAO.buscarPorID(connection, id);
 			CancionDialog dialog = new CancionDialog();
-			System.out.println("dialogo sin cancion");
 			dialog.setCancion(c);
 			dialog.setModal(true);
 			dialog.setVisible(true);
-			System.out.println("dialogo con cancion, aceptado aun no captado");
 			boolean aceptado = dialog.isAceptado();
-			System.out.println("El dialogo es aceptado: " + aceptado);
 			if (aceptado) {
-				System.out.println("Modificando");
+				System.out.println("Modificando cancion...");
 				CancionesDAO.editaCancion(connection, c);
-				System.out.println("Guardada en BD");
+				System.out.println("Cancion guardada en BD");
 				return c;
 
 			}

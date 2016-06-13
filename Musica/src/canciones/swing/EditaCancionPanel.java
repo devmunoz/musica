@@ -1,11 +1,10 @@
 package canciones.swing;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,20 +15,15 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Dimension;
 
 public class EditaCancionPanel extends JPanel {
 	private JTextField tituloText;
@@ -47,7 +41,7 @@ public class EditaCancionPanel extends JPanel {
 	private Cancion _cancion;
 
 	private ImageIcon _ii;
-	
+
 	public Cancion getCancion() {
 		return _cancion;
 	}
@@ -62,7 +56,12 @@ public class EditaCancionPanel extends JPanel {
 		tituloText.setText(c.getTitulo());
 		artistaText_1.setText(c.getArtista());
 		albumText_1.setText(c.getAlbum());
-		anyoText_1.setText("" + (c.getAnyo()));
+		if (c.getAnyo() == 0) {
+			anyoText_1.setText("Año desconocido");
+		} else {
+			anyoText_1.setText("" + (c.getAnyo()));
+		}
+
 		generoText_1.setText(c.getGenero());
 
 		// añadir imagen
@@ -73,14 +72,14 @@ public class EditaCancionPanel extends JPanel {
 				System.err.println(caratula);
 
 				if (caratula == null) {
-					in = getClass().getResourceAsStream("/canciones/swing/default.png");
+					in = getClass().getResourceAsStream("/canciones/swing/res/default.png");
 				} else {
 					in = new ByteArrayInputStream(caratula);
 				}
 				ImageIcon ii = new ImageIcon(ImageIO.read(in));
-				
+
 				set_ii(ii);
-				
+
 				caratulaLabel.setIcon(redimensionaImg(ii));
 				caratulaLabel.setText("");
 
@@ -103,54 +102,43 @@ public class EditaCancionPanel extends JPanel {
 
 	private ImageIcon redimensionaImg(ImageIcon ii) {
 		Image img = ii.getImage();
-		Image newimg = img.getScaledInstance(250, 250,  java.awt.Image.SCALE_SMOOTH);
+		Image newimg = img.getScaledInstance(250, 250, java.awt.Image.SCALE_SMOOTH);
 		return new ImageIcon(newimg);
 	}
 
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		EditaCancionPanel p = new EditaCancionPanel();
-		Cancion c = new Cancion();
-		c.setTitulo("prueba");
-		c.setArtista("artista");
-		c.setAlbum("Album de prueba");
-		p.setCancion(c);
-		f.getContentPane().add(p, BorderLayout.CENTER);
-
-		f.pack();
-		f.setVisible(true);
-	}
-
 	public void guardarCancion() {
-		System.out.println("He tocado en guardar");
+		System.out.println("Guardando cancion...");
 		Cancion c = getCancion();
 		System.out.println("Antes de cambiar la cancion:" + c);
 
 		c.setTitulo(tituloText.getText());
 		c.setArtista(artistaText_1.getText());
 		c.setAlbum(albumText_1.getText());
-		c.setAnyo(Integer.parseInt(anyoText_1.getText()));
+		if (anyoText_1.getText().equals("Año desconocido")) {
+			c.setAnyo(0);
+		} else {
+			c.setAnyo(Integer.parseInt(anyoText_1.getText()));
+		}
 		c.setGenero(generoText_1.getText());
 
 		{
 			ImageIcon icon = get_ii();
-			
-			BufferedImage i =  (BufferedImage) icon.getImage();
-			
+
+			BufferedImage i = (BufferedImage) icon.getImage();
+
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
 				ImageIO.write(i, "png", out);
 				out.flush();
 				c.setCaratula(out.toByteArray());
 			} catch (IOException e) {
-				// NO DEBERIA FALLAR PORQUE VA DE MEMORIA A MEMORIA,
-				// DEJO LA TRAZA POR SI ACASO
 				e.printStackTrace();
 			}
 
 		}
 
 		System.out.println("Después de cambiar la cancion:" + c);
+		System.out.println("Cancion guardada.");
 
 	}
 
@@ -268,62 +256,86 @@ public class EditaCancionPanel extends JPanel {
 		});
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(20)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(generoText_1, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-								.addComponent(anyoText_1, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-								.addComponent(albumText_1, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-								.addComponent(artistaText_1, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-								.addComponent(tituloText, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(80)
-							.addComponent(seleccionarButton, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
-					.addGap(30)
-					.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
-					.addGap(20))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(artistaText_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(albumText_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(anyoText_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(generoText_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addGap(34)
-							.addComponent(seleccionarButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(20, Short.MAX_VALUE))
-		);
+		groupLayout
+				.setHorizontalGroup(
+						groupLayout
+								.createParallelGroup(
+										Alignment.LEADING)
+								.addGroup(groupLayout
+										.createSequentialGroup().addGroup(groupLayout.createParallelGroup(
+												Alignment.LEADING)
+												.addGroup(groupLayout
+														.createSequentialGroup().addGap(20).addGroup(groupLayout
+																.createParallelGroup(Alignment.LEADING)
+																.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 60,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE,
+																		60, GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 60,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 60,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 60,
+																		GroupLayout.PREFERRED_SIZE))
+														.addGap(10)
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addComponent(generoText_1, GroupLayout.DEFAULT_SIZE,
+																		200, Short.MAX_VALUE)
+																.addComponent(anyoText_1, GroupLayout.DEFAULT_SIZE, 200,
+																		Short.MAX_VALUE)
+																.addComponent(albumText_1, GroupLayout.DEFAULT_SIZE,
+																		200, Short.MAX_VALUE)
+																.addComponent(artistaText_1, GroupLayout.DEFAULT_SIZE,
+																		200, Short.MAX_VALUE)
+																.addComponent(tituloText, GroupLayout.DEFAULT_SIZE, 200,
+																		Short.MAX_VALUE)))
+												.addGroup(groupLayout.createSequentialGroup().addGap(80).addComponent(
+														seleccionarButton, GroupLayout.PREFERRED_SIZE, 160,
+														GroupLayout.PREFERRED_SIZE)))
+										.addGap(30).addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(20)));
+		groupLayout
+				.setVerticalGroup(
+						groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup().addGap(20).addGroup(groupLayout
+										.createParallelGroup(
+												Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(tituloText, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblArtista, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(artistaText_1, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblAlbum, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(albumText_1, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblAo, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(anyoText_1, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(generoText_1, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblGenero, GroupLayout.PREFERRED_SIZE, 30,
+																GroupLayout.PREFERRED_SIZE))
+												.addGap(34).addComponent(seleccionarButton, GroupLayout.PREFERRED_SIZE,
+														40, GroupLayout.PREFERRED_SIZE))
+										.addComponent(caratulaLabel, GroupLayout.PREFERRED_SIZE, 260,
+												GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(20, Short.MAX_VALUE)));
 		setLayout(groupLayout);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { tituloText, artistaText_1, albumText_1,
 				anyoText_1, generoText_1, caratulaLabel, seleccionarButton }));
