@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql:5.7
+    container_name: mi-mysql57
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+    ports:
+      - "3306:3306"
+    command: ["--ssl=0", "--max_allowed_packet=16M"]
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql

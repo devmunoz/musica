@@ -5,16 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-
 	// por defecto usa la BD musica en localhost
 	private static String url = "jdbc:mysql://localhost/musica";
 	private static String user = "alumno";
 	private static String password = "alumno";
 
 	public static Connection creaConexion() throws SQLException {
-		Connection connection;
-		connection = DriverManager.getConnection(url, user, password);
-		return connection;
+		cargaDriver();
+		return DriverManager.getConnection(url, user, password);
 	}
 
 	public static void conexionDefecto() {
@@ -62,13 +60,7 @@ public class ConexionBD {
 
 	public static void cargaDriver() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			System.exit(0);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			System.exit(0);
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(0);
